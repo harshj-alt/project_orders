@@ -6,7 +6,7 @@
     <%= will_paginate @product%>
     </div>
 
-    <table class="table">
+    <table class="table table-bordered bbox">
       <thead class="dark">
         <tr>
           <th>product name</th>
@@ -37,6 +37,8 @@
                     <a href="#" class="thumbnail">
                       <%= image_tag(product.pimage) %> 
                     </a>
+                  </div>
+                </div>
             </td>
             <td><%= link_to 'Show', product %>
             <%  if logged_in? && (current_user==product.user || current_user.admin?) %>
@@ -49,8 +51,11 @@
         <% end %>
       </tbody>
     </table>
+    <div class="center">
+    <%= will_paginate @product%>
+    </div>
   <% else %>
-       <h1 class="center">this is user page</h1>
+       <h1 class="center">Welcome</h1>
        <div class="center">
         <%= will_paginate @product%>
        </div>
@@ -62,7 +67,7 @@
               <div class="thumbnail">
                 <%= image_tag(product.pimage) %>
                 <div class="caption">
-                  <h3>Thumbnail label</h3>
+                  <h5><%= product.pname %></h5>
                   <%
 =begin%>
  <p><small><%= product.description%></small></p> 

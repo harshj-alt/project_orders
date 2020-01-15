@@ -1,28 +1,76 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Order number:</strong>
-  <%= @order.order_number %>
-</p>
+
+<div class="jumbotron">
+  
+  <div class="container">
+  
+      <div class="row col-xl-12">
+        <div class="col-sm-6">
+          <p>
+             <%=image_tag((Product.find_by(params[@order.product_id]).pimage))%>
+          </p> 
+
+        </div>
+        <div align="left" class="col-sm-6" style="color:black">
+          <br>
+          
+          <%
+=begin%>
+ <p><strong> Order_number:</strong>   <%= @Order.order_number %></p><br> 
+<%
+=end%>
+
+          <%
+=begin%>
+ <p><small><strong>Product SKU:</strong>   <%= @product.psku %> </small></p><br> 
+<%
+=end%>
+
+
+                <p>
+                  Order number:
+                  <%= @order.order_number %>
+                
+
+                <p>
+                  Order date:
+                  <%= @order.order_date %>
+                </p>
+
+                <p>
+                  Order total:
+                  <%= @order.order_total %>
+                </p>
+
+                <p>
+                  Order type:
+                  <%= @order.order_type %>
+                </p>
+                <p>
+                  Order type:
+                  <%= @order.product_id %>
+                </p>
+        </div>
+      </div>
+    </div>
+  <p><a><%= link_to 'Back', products_path,class: "btn btn-primary" %></a></p>
+</div>
+
+
+
+
+<div align="center">
+
 
 <p>
-  <strong>Order date:</strong>
-  <%= @order.order_date %>
-</p>
 
-<p>
-  <strong>Order total:</strong>
-  <%= @order.order_total %>
-</p>
-
-<p>
-  <strong>Order type:</strong>
-  <%= @order.order_type %>
-</p>
-<p>
   <strong>product_id:</strong>
-  <%= @order.product_id%>
+ 
+ 
+ <%= username=(User.find_by(params[@order.user_id]).addresses.first.city)%>  
+
 </p>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
+</div>
