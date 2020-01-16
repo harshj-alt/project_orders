@@ -7,5 +7,11 @@ class Product < ApplicationRecord
 
 
 
-
+  def self.search(search)
+    if search
+      where(["pname LIKE?","%#{search}%"])
+    else
+      all
+    end
+  end 
 end
