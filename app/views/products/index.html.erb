@@ -5,7 +5,10 @@
     <div class="center">
     <%= will_paginate @product%>
     </div>
-
+    <%=form_for products_path , :method =>'get' do %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "search" %>
+    <% end %>
     <table class="table table-bordered bbox">
       <thead class="dark">
         <tr>
