@@ -5,72 +5,65 @@
   
   <div class="container">
   
-      <div class="row col-xl-12">
+      <div class="row col-xl-12" style="color:black">
         <div class="col-sm-6">
+          <strong>Product Image</strong>
           <p>
-             <%=image_tag((Product.find_by(params[@order.product_id]).pimage))%>
-          </p> 
-
+            <%=image_tag((Product.find_by(params[@order.product_id]).pimage))%>
+          <p>
+          <div>
+            <small>
+              Product Name:
+              <%= (Product.find_by(params[@order.product_id]).pname) %>
+              <br>
+              Product Id:
+              <%= @order.product_id %>
+              <br>
+              Order Number:
+              <%= @order.order_number %>
+              <br>
+              <br>
+              Product Description:
+              <br>
+              <%= (Product.find_by(params[@order.product_id]).description) %>
+            </small>
+          </div>
         </div>
-        <div align="left" class="col-sm-6" style="color:black">
+        <div align="left" class="col-sm-6" style="color:black"> 
           <br>
-          
-          <%
-=begin%>
- <p><strong> Order_number:</strong>   <%= @Order.order_number %></p><br> 
-<%
-=end%>
-
-          <%
-=begin%>
- <p><small><strong>Product SKU:</strong>   <%= @product.psku %> </small></p><br> 
-<%
-=end%>
-
-
-                <p>
-                  Order number:
-                  <%= @order.order_number %>
-                
-
                 <p>
                   Order date:
                   <%= @order.order_date %>
                 </p>
 
                 <p>
-                  Order total:
-                  <%= @order.order_total %>
+                  Name:
+                  <%= (User.find_by(params[@order.user_id]).username) %>
                 </p>
+                Order type:
+                <%= @order.order_type %>
+                <div>
+                    <h3>Address:</h3>
+                    <br>
+                    House Name:
+                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.housename) %>
+                    <br>
+                    Street:
+                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.street) %>
+                    <br>
+                    City:
+                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.city) %>
+                    <br>
+                    State:
+                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.state) %>
+                    <br>
+                    Pincode:
+                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.pincode) %>
 
-                <p>
-                  Order type:
-                  <%= @order.order_type %>
-                </p>
-                <p>
-                  Order type:
-                  <%= @order.product_id %>
-                </p>
+                </div>
         </div>
       </div>
     </div>
+    <br>
   <p><a><%= link_to 'Back', products_path,class: "btn btn-primary" %></a></p>
-</div>
-
-
-
-
-<div align="center">
-
-
-<p>
-
-  <strong>product_id:</strong>
- 
- 
- <%= username=(User.find_by(params[@order.user_id]).addresses.first.city)%>  
-
-</p>
-
-<%= link_to 'Back', orders_path %>
 </div>
