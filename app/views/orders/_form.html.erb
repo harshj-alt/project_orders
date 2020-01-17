@@ -31,7 +31,7 @@
       <div class="form-group">
         <div class="field" >
           <%= f.label :product_id %>
-          <%= f.select :product_id,options_for_select(Product.all.collect{|c| [c.pname,c.id]}), class: 'form-control' %>
+          <%= render 'addorder', f:f %>
         </div>
 
         <div class="field">
@@ -39,6 +39,7 @@
           <%= f.text_field :quantity,:required =>true,class:"form-control" %>
         </div>
       </div>
+       <%= link_to_add_product('add product', f,:lineitems, class: 'btn btn-primary')%>
     <% end %>
     <div class="field">
       <%= form.label :total %>
