@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :user
-  has_many :order_table
-  has_many :orders, through: :order_table
+  has_many :line_items
+  has_many :orders, through: :line_items
 
   validates :user_id, presence: true
 

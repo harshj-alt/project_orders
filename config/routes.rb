@@ -2,7 +2,7 @@ Rails.application.routes.draw do
  
   root 'products#index'
 
-  resources :order_tables
+  resources :line_items
   resources :orders
   resources :addresses
 
