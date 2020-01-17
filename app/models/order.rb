@@ -6,10 +6,14 @@ class Order < ApplicationRecord
   #belongs_to :address
   belongs_to :user
 
-  has_many :line_items
-  #has_many :products, through: :line_items
-  has_many :products
+  has_many :lineitems, dependent: :destroy
+  has_many :products, through: :lineitems
+  accepts_nested_attributes_for :lineitems
   accepts_nested_attributes_for :products
+
+
+  # has_many :products, through: :line_items
+  #has_many :products
 
 
 

@@ -10,62 +10,57 @@
       </ul>
     </div>
   <% end %>
-  <div class="jumbotron">
-  
-  <div class="container">
-  
-      <div class="row col-xl-12">
-        <div class="col-sm-6">
-          <div class="field">
-            <%= image_tag(Product.find(params[:product_id]).pimage) %>
-            <div style="color:black">
-              <h3><%= product_name=(Product.find(params[:product_id]).pname) %> </h3>
-              <small><%= form.label :'Product Sku:' %> <%= product_sku=(Product.find(params[:product_id]).psku) %></small><br><br>
-              <%= form.label :'Product Description:' %> 
-              <div align="left">
-              <small><%= product_description=(Product.find(params[:product_id]).description)%></small>
-              </div>
-              
-            </div>
-          </div>
+  <div class="form-group">
+    <div class="field">
+      <%= form.label :order_number %>
+      <%= form.number_field :order_number ,:value =>"#{rand(100..1000)}",:readonly => true,class:"form-control"%>
+    </div>
+
+    <div class="field">
+      <%= form.label :order_type %>
+      <%= form.text_field :order_type ,:required =>true,class:"form-control"%>
+    </div>
+
+
+    <div class="field">
+      <%= form.label :orderdate %>
+      <%= form.text_field :orderdate ,:value => "#{Date.today}", :readonly => true %>
+    </div>
+    </div>
+    <%= form.fields_for :lineitems do |f| %>
+      <div class="form-group">
+        <div class="field" >
+          <%= f.label :product_id %>
+          <%= f.select :product_id,options_for_select(Product.all.collect{|c| [c.pname,c.id]}), class: 'form-control' %>
         </div>
-        <div align="left" class="col-sm-6" style="color:black">
-          <div>
-            <h5><%= form.label :'Order Date:' %><h5>
-            <small><%= form.text_field :order_date , :value => "#{Date.today}", :readonly => true%></small>  
-          </div>
-          <div class="field">
-            <%= form.label :order_number %>
-            <%= form.text_field :order_number,:value =>"#{rand(1000..10000)}",:readonly => true %>
-            <%= form.label :order_type %>
-            <%= form.text_field :order_type %>
-            <%= form.label :'order total in $' %>
-            <%= form.text_field :order_total , :value => "#{Product.find(params[:product_id]).pprice}", :readonly => true%>
-            <%= form.label :'Name' %>
-            <%= form.text_field :user_id,  :value => "#{current_user.username}", :readonly => true %>
-            <h3><%= form.label:'Address:'%></h3>
-            <%= form.label :housenmae %>
-            <%= form.text_field :housename,  :value => "#{current_user.addresses.first.housename}", :readonly => true %>
-            <%= form.label :street %>
-            <%= form.text_field :street,  :value => "#{current_user.addresses.first.street}", :readonly => true %>
-            <%= form.label :city %>
-            <%= form.text_field :city,  :value => "#{current_user.addresses.first.city}", :readonly => true %>
-            <%= form.label :state %>
-            <%= form.text_field :state,  :value => "#{current_user.addresses.first.state}", :readonly => true %>
-            <%= form.label :pincode %>
-            <%= form.text_field :pincode,  :value => "#{current_user.addresses.first.pincode}", :readonly => true %>
-           
-           
-            <%= form.hidden_field :user_id,  :value => "#{current_user.id}", :readonly => true %>
-            <%= form.hidden_field :product_id,  :value => "#{Product.find(params[:product_id]).id}", :readonly => true %>
-          </div>
+
+        <div class="field">
+          <%= f.label :quantity %>
+          <%= f.text_field :quantity,:required =>true,class:"form-control" %>
         </div>
       </div>
+    <% end %>
+    <div class="field">
+      <%= form.label :total %>
+      <%= form.text_field :total,class:'form-control' %>
     </div>
-    <div class="actions" style="color:black">
-      <%= form.submit %>
+
+    <div class="form-group">
+      <div class="field">
+        <%= form.label :user_id %>
+        <%= form.text_field :user_id, :value=>current_user.id ,:readonly =>true,class:"form-control"%>
+      </div>
+      <div class="field">
+        <%= form.label :address_id %>
+        <%= form.select :address_id,options_for_select(current_user.addresses.all.collect{|c| [c.city]}), class: 'form-control' %>
+
+      </div>
+
+      <div class="actions">
+        <%= form.submit class: 'btn btn-default'%>
+      </div>
     </div>
-  
 <% end %>
+
 
 

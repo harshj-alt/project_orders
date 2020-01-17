@@ -1,11 +1,11 @@
 class Product < ApplicationRecord
   belongs_to :user
-  has_many :line_items
-  #has_many :orders, through: :line_items
-  belongs_to :order
+  has_many :lineitems, dependent: :destroy
+  has_many :orders, through: :lineitems
 
   validates :user_id, presence: true
 
+  attr_accessor :orders_attributes, :lineitems_attributes
 
 
   def self.search(search)

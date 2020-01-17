@@ -16,6 +16,7 @@
     <tbody>
       <% @orders.each do |order| %>
         <tr>
+          <td><%= order.id %></td>
           <td><%= order.order_number %></td>
           <td><%= order.order_date %></td>
           <td><%= order.order_total %></td>

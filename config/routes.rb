@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
  
+  resources :lineitems
   root 'products#index'
 
   resources :line_items

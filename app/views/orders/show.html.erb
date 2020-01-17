@@ -1,69 +1,74 @@
 <p id="notice"><%= notice %></p>
+<h4>Order Summary</h4>
+<hr class="bbox">
+<p>
+  <strong>OrdeId:</strong>
+  <%= @order.id %>
+</p>
+<p>
+  <strong>Order number:</strong>
+  <%= @order.order_number %>
+</p>
+<p>
+
+</p>
+<p>
+  <strong>Order Type:</strong>
+  <%= @order.order_type %>
+</p>
+<p>
+  <strong>Total:</strong>
+  <% tot = 0 %>
+  <% @order.lineitems.each do |order| %>
+    <% tot+=(order.product.pprice * order.quantity) %>
+  <% end %>
+  <%= tot %>
+</p>
+<p>
+  <strong>Orderdate:</strong>
+  <%= @order.order_date %>
+</p>
+
+<hr class="bbox">
+
+<h4>UserInfo:</h4>
+<p>
+  <strong>User:</strong>
+  <%= @order.user.username %>
+</p>
+<p>
+  <strong>EmailId:</strong>
+  <%= @order.user.email %>
+
+</p>
+
+<hr class="bbox">
+
+<h4>ProductInfo:</h4>
+<% @order.lineitems.each do |order| %>
+  <p>
+    <strong>Product_id:</strong>
+    <%= order.product_id %>
+  </p>
+  <p>
+    <strong>Product_name:</strong>
+    <%= order.product.pname %>
+  </p>
+  <p>
+    <strong>Price:</strong>
+    <%= order.product.pprice %>
+  </p>
+  <p>
+    <strong>Quantity:</strong>
+    <%= order.quantity%>
+  </p>
+<% end %>
+
+<hr>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
 
 
-<div class="jumbotron">
-  
-  <div class="container">
-  
-      <div class="row col-xl-12" style="color:black">
-        <div class="col-sm-6">
-          <strong>Product Image</strong>
-          <p>
-            <%=image_tag((Product.find_by(params[@order.product_id]).pimage))%>
-          <p>
-          <div>
-            <small>
-              Product Name:
-              <%= (Product.find_by(params[@order.product_id]).pname) %>
-              <br>
-              Product Id:
-              <%= @order.product_id %>
-              <br>
-              Order Number:
-              <%= @order.order_number %>
-              <br>
-              <br>
-              Product Description:
-              <br>
-              <%= (Product.find_by(params[@order.product_id]).description) %>
-            </small>
-          </div>
-        </div>
-        <div align="left" class="col-sm-6" style="color:black"> 
-          <br>
-                <p>
-                  Order date:
-                  <%= @order.order_date %>
-                </p>
 
-                <p>
-                  Name:
-                  <%= (User.find_by(params[@order.user_id]).username) %>
-                </p>
-                Order type:
-                <%= @order.order_type %>
-                <div>
-                    <h3>Address:</h3>
-                    <br>
-                    House Name:
-                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.housename) %>
-                    <br>
-                    Street:
-                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.street) %>
-                    <br>
-                    City:
-                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.city) %>
-                    <br>
-                    State:
-                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.state) %>
-                    <br>
-                    Pincode:
-                    <%= username=(User.find_by(params[@order.user_id]).addresses.first.pincode) %>
 
-                </div>
-        </div>
-      </div>
-    </div>
-    <br>
-  <p><a><%= link_to 'Back', products_path,class: "btn btn-primary" %></a></p>
-</div>

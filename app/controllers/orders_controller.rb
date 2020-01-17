@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :set_order_for_Product, only: [:new]
-  before_action :user_required
+  #before_action :set_order_for_Product, only: [:new]
+
 
   # GET /orders
   # GET /orders.json
@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
   def new
     #byebug
       @order = Order.new
+      @order.lineitems.new
 
   end
 
@@ -75,21 +76,13 @@ class OrdersController < ApplicationController
 
     end
 
-    def set_order_for_Product
-      @product = Product.find(params[:product_id])
-    end
+    # def set_order_for_Product
+    #   @product = Product.find(params[:product_id])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_number, :order_date, :order_total, :order_type,:product_id,:user_id, products_attributes: [:id])
-    end
-    def user_required
-      if logged_in?
-
-      else
-        redirect_to root_path
-        flash[:notice]="you must logged in to do this"
-      end
+      params.require(:order).permit(:order_number, :order_date, :order_total, :order_type,:product_id,:user_id, lineitems_attributes: [:quantity,:product_id])
     end
 
 
