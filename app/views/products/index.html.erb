@@ -38,7 +38,7 @@
             <td><div class="row">
                   <div class="col-xs-6 col-md-3">
                     <a href="#" class="thumbnail">
-                      <%= image_tag(product.pimage) %> 
+                      <%= image_tag(product.pimage) %>
                     </a>
                   </div>
                 </div>
@@ -62,6 +62,10 @@
        <div class="center">
         <%= will_paginate @product%>
        </div>
+       <%=form_for products_path , :method =>'get' do %>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "search" %>
+       <% end %>
 
        <div class="container ">
         <% @products.each do |product| %>
@@ -73,7 +77,7 @@
                   <h5><%= product.pname %></h5>
                   <%
 =begin%>
- <p><small><%= product.description%></small></p> 
+ <p><small><%= product.description%></small></p>
 <%
 =end%>
                   <p><%= link_to "Show",product,class: "btn btn-primary" %></p>

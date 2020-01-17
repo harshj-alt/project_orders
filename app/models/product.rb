@@ -1,7 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :user
   has_many :line_items
-  has_many :orders, through: :line_items
+  #has_many :orders, through: :line_items
+  belongs_to :order
 
   validates :user_id, presence: true
 
@@ -13,5 +14,5 @@ class Product < ApplicationRecord
     else
       all
     end
-  end 
+  end
 end
