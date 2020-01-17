@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_053313) do
+ActiveRecord::Schema.define(version: 2020_01_16_125927) do
 
   create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "housename"
@@ -24,14 +24,14 @@ ActiveRecord::Schema.define(version: 2020_01_14_053313) do
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
-  create_table "order_tables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
     t.bigint "order_id"
-    t.index ["order_id"], name: "index_order_tables_on_order_id"
-    t.index ["product_id"], name: "index_order_tables_on_product_id"
+    t.index ["order_id"], name: "index_line_items_on_order_id"
+    t.index ["product_id"], name: "index_line_items_on_product_id"
   end
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(version: 2020_01_14_053313) do
   end
 
   add_foreign_key "addresses", "users"
-  add_foreign_key "order_tables", "orders"
-  add_foreign_key "order_tables", "products"
+  add_foreign_key "line_items", "orders"
+  add_foreign_key "line_items", "products"
   add_foreign_key "orders", "products"
   add_foreign_key "orders", "users"
 end

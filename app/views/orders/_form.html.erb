@@ -10,54 +10,62 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :order_number %>
-    <%= form.text_field :order_number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :order_date %>
-    <%= form.date_select :order_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :order_total %>
-    <%= form.text_field :order_total %>
-  </div>
-
-  <div class="field">
-    <%= form.label :order_type %>
-    <%= form.text_field :order_type %>
-  </div>
-
-  <div class="field col-xs-12" >
-  <%= form.label :Product_ID %>
+  <div class="jumbotron">
   
-  <%= form.text_field :product_id,:value => "#{Product.find(params[:product_id]).id}", :readonly => true %>
-  <%
-=begin%>
- <%= form.select :product_id, options_for_select(Product.find(params[:id]){|c| [c.pname,c.id]}) %> 
-<%
-=end%>
-  </div>
-
-  <div class="field col-xs-12" >
-  <%= form.label :'Product name' %>
+  <div class="container">
   
-  <%= form.text_field :pname,:value => "#{Product.find(params[:product_id]).pname}", :readonly => true %>
-  </div>
-
-
-  <div class="field col-xs-12" >
-  <%= form.label :user_id %>
-  <%= form.select :user_id, options_for_select(User.all.collect{|c| [c.username,c.id]}) %>
-  </div>
-  <div class="field col-xs-12" >
-  <%= form.label :address %>
-  <%= form.select :address_id, options_for_select(Address.all.collect{|c| [c.street,c.id]}) %>
-  </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+      <div class="row col-xl-12">
+        <div class="col-sm-6">
+          <div class="field">
+            <%= image_tag(Product.find(params[:product_id]).pimage) %>
+            <div style="color:black">
+              <h3><%= product_name=(Product.find(params[:product_id]).pname) %> </h3>
+              <small><%= form.label :'Product Sku:' %> <%= product_sku=(Product.find(params[:product_id]).psku) %></small><br><br>
+              <%= form.label :'Product Description:' %> 
+              <div align="left">
+              <small><%= product_description=(Product.find(params[:product_id]).description)%></small>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div align="left" class="col-sm-6" style="color:black">
+          <div>
+            <h5><%= form.label :'Order Date:' %><h5>
+            <small><%= form.text_field :order_date , :value => "#{Date.today}", :readonly => true%></small>  
+          </div>
+          <div class="field">
+            <%= form.label :order_number %>
+            <%= form.text_field :order_number,:value =>"#{rand(1000..10000)}",:readonly => true %>
+            <%= form.label :order_type %>
+            <%= form.text_field :order_type %>
+            <%= form.label :'order total in $' %>
+            <%= form.text_field :order_total , :value => "#{Product.find(params[:product_id]).pprice}", :readonly => true%>
+            <%= form.label :'Name' %>
+            <%= form.text_field :user_id,  :value => "#{current_user.username}", :readonly => true %>
+            <h3><%= form.label:'Address:'%></h3>
+            <%= form.label :housenmae %>
+            <%= form.text_field :housename,  :value => "#{current_user.addresses.first.housename}", :readonly => true %>
+            <%= form.label :street %>
+            <%= form.text_field :street,  :value => "#{current_user.addresses.first.street}", :readonly => true %>
+            <%= form.label :city %>
+            <%= form.text_field :city,  :value => "#{current_user.addresses.first.city}", :readonly => true %>
+            <%= form.label :state %>
+            <%= form.text_field :state,  :value => "#{current_user.addresses.first.state}", :readonly => true %>
+            <%= form.label :pincode %>
+            <%= form.text_field :pincode,  :value => "#{current_user.addresses.first.pincode}", :readonly => true %>
+           
+           
+            <%= form.hidden_field :user_id,  :value => "#{current_user.id}", :readonly => true %>
+            <%= form.hidden_field :product_id,  :value => "#{Product.find(params[:product_id]).id}", :readonly => true %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="actions" style="color:black">
+      <%= form.submit %>
+    </div>
+  
 <% end %>
+
+

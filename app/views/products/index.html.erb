@@ -5,8 +5,11 @@
     <div class="center">
     <%= will_paginate @product%>
     </div>
-
-    <table class="table">
+    <%=form_for products_path , :method =>'get' do %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "search" %>
+    <% end %>
+    <table class="table table-bordered bbox">
       <thead class="dark">
         <tr>
           <th>product name</th>
@@ -35,8 +38,10 @@
             <td><div class="row">
                   <div class="col-xs-6 col-md-3">
                     <a href="#" class="thumbnail">
-                      <%= image_tag(product.pimage) %> 
+                      <%= image_tag(product.pimage) %>
                     </a>
+                  </div>
+                </div>
             </td>
             <td><%= link_to 'Show', product %>
             <%  if logged_in? && (current_user==product.user || current_user.admin?) %>
@@ -49,11 +54,18 @@
         <% end %>
       </tbody>
     </table>
+    <div class="center">
+    <%= will_paginate @product%>
+    </div>
   <% else %>
-       <h1 class="center">this is user page</h1>
+       <h1 class="center">Welcome</h1>
        <div class="center">
         <%= will_paginate @product%>
        </div>
+       <%=form_for products_path , :method =>'get' do %>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "search" %>
+       <% end %>
 
        <div class="container ">
         <% @products.each do |product| %>
@@ -62,10 +74,10 @@
               <div class="thumbnail">
                 <%= image_tag(product.pimage) %>
                 <div class="caption">
-                  <h3>Thumbnail label</h3>
+                  <h5><%= product.pname %></h5>
                   <%
 =begin%>
- <p><small><%= product.description%></small></p> 
+ <p><small><%= product.description%></small></p>
 <%
 =end%>
                   <p><%= link_to "Show",product,class: "btn btn-primary" %></p>

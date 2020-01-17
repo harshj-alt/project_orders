@@ -4,11 +4,11 @@ class Order < ApplicationRecord
 
 
   #belongs_to :address
-  #belongs_to :user
+  belongs_to :user
 
-  has_many :order_table
-  has_many :products, through: :order_table
-
+  has_many :line_items
+  #has_many :products, through: :line_items
+  has_many :products
   accepts_nested_attributes_for :products
 
 
