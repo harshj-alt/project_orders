@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    #byebug
+    byebug
     #here @product=find.productfind(:product);
     respond_to do |format|
       if @order.save
@@ -82,7 +82,9 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_number, :order_date, :order_total, :order_type,:product_id,:user_id, lineitems_attributes: [:quantity,:product_id])
+      # params.require(:order).permit(:order_number, :order_date, :order_total, :order_type,:product_id,:user_id, lineitems_attributes: [:quantity,:product_id])
+       params.require(:order).permit(:order_number, :order_date, :order_total, :order_type,:product_id,:user_id, lineitems_attributes: Lineitem.attribute_names.map(&:to_sym).push(:_destroy))
+      # params.require(:order).permit(:order_number, :orderdate, :total, :order_type,:product_id,:user_id, lineitems_attributes: Lineitem.attribute_names.map(&:to_sym).push(:_destroy))
     end
 
 

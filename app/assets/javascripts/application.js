@@ -18,13 +18,3 @@
 //= require_tree .
 
 
-$(document).on('turbolinks:load', fucntion () {
-
-    $('form').on('click', '.add_fields', fucntion(event){
-      var regexp, time;
-      time= new Date().getTime();
-      regexp = new RegExp($(this).data('id'),'g');
-      $('.fields').append($(this).data('fields').replace(regexp, time));
-      return event.preventDefault();
-    });
-  });
